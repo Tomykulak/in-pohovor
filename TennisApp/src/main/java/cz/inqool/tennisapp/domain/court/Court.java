@@ -13,6 +13,7 @@ public class Court {
     private int id;
 
     private String name;
+    private boolean isDeleted;
 
     @ManyToOne
     @JoinColumn(name = "surface_type_id", nullable = false) // Link to Surface

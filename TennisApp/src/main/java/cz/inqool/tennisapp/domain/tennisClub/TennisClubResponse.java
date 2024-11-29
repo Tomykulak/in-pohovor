@@ -18,7 +18,7 @@ public class TennisClubResponse {
         this.id = tennisClub.getId();
         this.name = tennisClub.getName();
         this.courts = tennisClub.getCourts().stream()
-                .map(CourtResponse::new) // Explicit mapping
+                .map(CourtResponse::new)
                 .collect(Collectors.toSet());
     }
 }

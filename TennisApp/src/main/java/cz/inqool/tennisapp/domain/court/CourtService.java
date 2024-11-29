@@ -13,4 +13,13 @@ public class CourtService {
     public Court createCourt(Court court) {
         return courtRepository.save(court);
     }
+
+    public Court updateCourt(Court court) {
+        return courtRepository.save(court);
+    }
+
+    // only soft delete, so update isDeleted to true
+    public void deleteCourt(Court court) {
+        courtRepository.save(court);
+    }
 }

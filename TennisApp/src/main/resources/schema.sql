@@ -12,6 +12,7 @@ cost INT NOT NULL
 CREATE TABLE court (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
+    is_deleted BOOLEAN NOT NULL,
     tennis_club_id INT NOT NULL,
     surface_type_id INT NOT NULL,
     FOREIGN KEY (tennis_club_id) REFERENCES tennis_club(id) ON DELETE CASCADE,
@@ -26,8 +27,8 @@ INSERT INTO surface_type (name, cost) VALUES
     ('GRASS', 300),
     ('CARPET', 400);
 
-INSERT INTO court (name, tennis_club_id, surface_type_id) VALUES
-    ('Court 1.0 works, yupie!', 1, (SELECT id FROM surface_type WHERE name = 'CLAY')),
-    ('Court 1.1 works, yupie!', 1, (SELECT id FROM surface_type WHERE name = 'GRASS')),
-    ('Court 2.0 works, yupie!', 2, (SELECT id FROM surface_type WHERE name = 'CLAY')),
-    ('Court 2.1 works, yupie!', 2, (SELECT id FROM surface_type WHERE name = 'CARPET'));
+INSERT INTO court (name, is_deleted, tennis_club_id, surface_type_id) VALUES
+    ('Court 1.0 works, yupie!', false, 1, (SELECT id FROM surface_type WHERE name = 'CLAY')),
+    ('Court 1.1 works, yupie!', false, 1, (SELECT id FROM surface_type WHERE name = 'GRASS')),
+    ('Court 2.0 works, yupie!', false, 2, (SELECT id FROM surface_type WHERE name = 'CLAY')),
+    ('Court 2.1 works, yupie!', false, 2, (SELECT id FROM surface_type WHERE name = 'CARPET'));
