@@ -28,10 +28,10 @@ public class ReservationController {
     }
 
     @GetMapping(value = "/phone-number/{phoneNumber}", produces = "application/json")
-    public ArrayResponse<ReservationResponse> getReservationsForPhoneNumber(
+    public ArrayResponse<ReservationResponse> getReservationsByPhoneNumber(
             @PathVariable String phoneNumber,
             @RequestParam(required = false, defaultValue = "false") boolean futureOnly) {
-        List<Reservation> reservations = reservationService.getReservationsForPhoneNumber(phoneNumber, futureOnly);
+        List<Reservation> reservations = reservationService.getReservationsByPhoneNumber(phoneNumber, futureOnly);
         return ArrayResponse.of(reservations, ReservationResponse::new);
     }
 
@@ -48,7 +48,7 @@ public class ReservationController {
         return ObjectResponse.of(reservation, ReservationResponse::new);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/id/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteReservation(@PathVariable int id) {
         Reservation reservation = reservationService

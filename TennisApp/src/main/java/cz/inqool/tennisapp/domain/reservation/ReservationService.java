@@ -30,7 +30,7 @@ public class ReservationService {
         return reservationRepository.findByCourtIdOrderByStartTimeAsc(courtId);
     }
 
-    public List<Reservation> getReservationsForPhoneNumber(String phoneNumber, boolean onlyFuture) {
+    public List<Reservation> getReservationsByPhoneNumber(String phoneNumber, boolean onlyFuture) {
         return onlyFuture
                 ? reservationRepository.findByCustomerPhoneNumberAndStartTimeAfter(phoneNumber, LocalDateTime.now())
                 : reservationRepository.findByCustomerPhoneNumber(phoneNumber);
