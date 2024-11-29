@@ -21,8 +21,8 @@ public class CourtService {
         return courts;
     }
 
-    public Optional<Court> getCourtById(int id) {
-        return courtRepository.findById((long) id);
+    public Court getCourtById(int id) {
+        return courtRepository.findById((long) id).orElse(null);
     }
 
     public Court createCourt(Court court) {

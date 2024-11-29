@@ -46,8 +46,11 @@ public class ReservationService {
         Customer customer = customerService.findOrCreateCustomer(customerName, phoneNumber);
 
         // Get court
-        Court court = courtService.getCourtById(courtId)
-                .orElseThrow(() -> new IllegalArgumentException("Court not found"));
+        Court court = courtService.getCourtById(courtId);
+
+        if (court == null) {
+            throw new IllegalArgumentException("Court not found");
+        }
 
         // Create reservation
         Reservation reservation = new Reservation();
