@@ -19,11 +19,12 @@ public class TennisClub {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    /*
+
     // one TennisClub has multiple Courts
-    @OneToMany(mappedBy = "tennis_club")
+    // id of Court
+    @OneToMany(mappedBy = "id")
     @EqualsAndHashCode.Exclude
     private Set<Court> courts = new HashSet<Court>();
-    */
+
 
 }

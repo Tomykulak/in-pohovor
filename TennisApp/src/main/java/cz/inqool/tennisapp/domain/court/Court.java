@@ -13,9 +13,8 @@ public class Court {
 
     private String name;
 
-    /*
+
     @ManyToOne
-    @JoinColumn(name = "tennis_club_id")
     private TennisClub tennisClub;
-     */
+
 }
