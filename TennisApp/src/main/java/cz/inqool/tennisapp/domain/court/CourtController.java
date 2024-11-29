@@ -17,13 +17,14 @@ public class CourtController {
     }
 
 
-    @DeleteMapping(value = "/{id}", produces = "application/json")
+    @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
     public void deleteCourt(@PathVariable int id) {
         Court court = courtService
                 .getCourtById(id)
                 .orElseThrow(NotFoundException::new);
+        // only SOFT Delete
         courtService.deleteCourt(court);
     }
 }
