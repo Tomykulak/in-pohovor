@@ -1,6 +1,9 @@
 # in-pohovor
 # Application to store courts, surfaceTypes, reservations, customers.
-# http://localhost:8080/api/
+
+# Main url: http://localhost:8080/api/
+# H2 in-memory DB: http://localhost:8080/h2-console/
+
 
 # All tennis clubs
 - http://localhost:8080/api/tennis-club
@@ -16,5 +19,7 @@
 - http://localhost:8080/api/court/1/reservation
 
 
-# Reservations by id
+# Reservations by phone number
 - http://localhost:8080/api/reservation/phone-number/123456789
+# Reservations by id
+- http://localhost:8080/api/reservation/id/1
