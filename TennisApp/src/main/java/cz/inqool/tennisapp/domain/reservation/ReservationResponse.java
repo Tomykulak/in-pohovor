@@ -1,7 +1,11 @@
 package cz.inqool.tennisapp.domain.reservation;
 
+import lombok.Data;
+
 import java.time.LocalDateTime;
 
+
+@Data
 public class ReservationResponse {
     private Long id;
     private String courtName;
