@@ -1,13 +1,13 @@
 package cz.inqool.tennisapp.domain.court;
 
 import cz.inqool.tennisapp.domain.reservation.Reservation;
+import cz.inqool.tennisapp.domain.reservation.ReservationResponse;
 import cz.inqool.tennisapp.domain.reservation.ReservationService;
 import cz.inqool.tennisapp.utils.exceptions.NotFoundException;
 import cz.inqool.tennisapp.utils.response.ArrayResponse;
 import cz.inqool.tennisapp.utils.response.ObjectResponse;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,7 +26,8 @@ public class CourtController {
     @GetMapping(value = "", produces = "application/json")
     public ArrayResponse<CourtResponse> getAllCourts(){
         List<Court> courts = courtService.getAllCourts();
-        return ArrayResponse.of(courts,
+        return ArrayResponse.of(
+                courts,
                 CourtResponse::new
         );
     }
@@ -41,10 +42,13 @@ public class CourtController {
     }
 
 
-    @GetMapping("/{courtId}/reservations")
-    public ResponseEntity<List<Reservation>> getReservations(@PathVariable int courtId) {
+    @GetMapping("/{courtId}/reservation")
+    public ArrayResponse<ReservationResponse> getReservations(@PathVariable int courtId) {
         List<Reservation> reservations = reservationService.getReservationsForCourt(courtId);
-        return ResponseEntity.ok(reservations);
+        return ArrayResponse.of(
+                reservations,
+                ReservationResponse::new
+        );
     }
 
 

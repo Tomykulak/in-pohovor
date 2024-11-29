@@ -17,7 +17,7 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-    @GetMapping(value = "/{id}", produces = "application/json")
+    @GetMapping(value = "/id/{id}", produces = "application/json")
     public ObjectResponse<ReservationResponse> getReservationById(@PathVariable int id) {
         Reservation reservation = reservationService
                 .getReservationById(id);
@@ -27,7 +27,7 @@ public class ReservationController {
         return ObjectResponse.of(reservation, ReservationResponse::new);
     }
 
-    @GetMapping("/{phoneNumber}")
+    @GetMapping(value = "/phone-number/{phoneNumber}", produces = "application/json")
     public ArrayResponse<ReservationResponse> getReservationsForPhoneNumber(
             @PathVariable String phoneNumber,
             @RequestParam(required = false, defaultValue = "false") boolean futureOnly) {
