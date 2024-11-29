@@ -11,14 +11,16 @@ public class Court {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private String name;
+    // attribute for softDelete
     private boolean isDeleted;
 
+    // linked to surface
     @ManyToOne
-    @JoinColumn(name = "surface_type_id", nullable = false) // Link to Surface
+    @JoinColumn(name = "surface_type_id", nullable = false)
     private SurfaceType surfaceType;
 
+    // linked to tennisClub
     @ManyToOne
     @JoinColumn(name = "tennis_club_id", nullable = false)
     private TennisClub tennisClub;
