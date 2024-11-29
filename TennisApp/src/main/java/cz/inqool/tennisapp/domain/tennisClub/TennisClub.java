@@ -22,7 +22,7 @@ public class TennisClub {
 
     // one TennisClub has multiple Courts
     // id of Court
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "tennisClub", cascade = CascadeType.ALL, orphanRemoval = true)
     @EqualsAndHashCode.Exclude
     private Set<Court> courts = new HashSet<Court>();
 

@@ -15,6 +15,7 @@ public class Court {
 
 
     @ManyToOne
+    @JoinColumn(name = "tennis_club_id", nullable = false)
     private TennisClub tennisClub;
 
 }
