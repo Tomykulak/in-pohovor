@@ -22,6 +22,10 @@ public class ReservationService {
         this.customerService = customerService;
     }
 
+    public Reservation getReservationById(int id){
+        return reservationRepository.findById((long) id).orElse(null);
+    }
+
     public List<Reservation> getReservationsForCourt(int courtId) {
         return reservationRepository.findByCourtIdOrderByStartTimeAsc(courtId);
     }

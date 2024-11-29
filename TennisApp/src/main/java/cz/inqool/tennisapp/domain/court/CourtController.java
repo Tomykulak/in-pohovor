@@ -30,6 +30,9 @@ public class CourtController {
         );
     }
 
+    
+
+
     @GetMapping("/{courtId}/reservations")
     public ResponseEntity<List<Reservation>> getReservations(@PathVariable int courtId) {
         List<Reservation> reservations = reservationService.getReservationsForCourt(courtId);
