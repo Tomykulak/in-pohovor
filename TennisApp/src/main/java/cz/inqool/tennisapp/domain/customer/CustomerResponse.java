@@ -8,12 +8,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CustomerResponse {
-    private Long id;
+    private int id;
     private String name;
     private String phoneNumber;
 
     public CustomerResponse(Customer customer) {
-        this.id = (long) customer.getId();
+        this.id = customer.getId();
         this.name = customer.getName();
         this.phoneNumber = customer.getPhoneNumber();
     }
