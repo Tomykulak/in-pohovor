@@ -14,7 +14,8 @@ public class Court {
 
     private String name;
 
-    @Enumerated(EnumType.STRING)
+    @ManyToOne
+    @JoinColumn(name = "surface_type_id", nullable = false) // Link to Surface
     private SurfaceType surfaceType;
 
     @ManyToOne

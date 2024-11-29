@@ -14,6 +14,7 @@ public class CourtResponse{
     private int id;
     private String name;
     private int tennisClubId;
+
     private String surfaceType;
     private int surfaceCost;
 
@@ -25,7 +26,12 @@ public class CourtResponse{
         } else {
             this.tennisClubId = 0;
         }
-        this.surfaceType = court.getSurfaceType().toString();
-        this.surfaceCost = court.getSurfaceType().getCost();
+        if (court.getSurfaceType() != null) {
+            this.surfaceType = court.getSurfaceType().getName();
+            this.surfaceCost = court.getSurfaceType().getCost();
+        } else {
+            this.surfaceType = "UNKNOWN";
+            this.surfaceCost = 0;
+        }
     }
 }
