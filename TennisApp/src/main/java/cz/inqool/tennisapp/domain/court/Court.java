@@ -1,9 +1,12 @@
 package cz.inqool.tennisapp.domain.court;
 
+import cz.inqool.tennisapp.domain.reservation.Reservation;
 import cz.inqool.tennisapp.domain.surfaceType.SurfaceType;
 import cz.inqool.tennisapp.domain.tennisClub.TennisClub;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -25,4 +28,6 @@ public class Court {
     @JoinColumn(name = "tennis_club_id", nullable = false)
     private TennisClub tennisClub;
 
+    @OneToMany(mappedBy = "court", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reservation> reservations;
 }
