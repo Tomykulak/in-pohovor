@@ -3,7 +3,6 @@ package cz.inqool.tennisapp.domain.tennisClub;
 import cz.inqool.tennisapp.utils.exceptions.NotFoundException;
 import cz.inqool.tennisapp.utils.response.ArrayResponse;
 import cz.inqool.tennisapp.utils.response.ObjectResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +15,6 @@ import java.util.List;
 public class TennisClubController {
     private TennisClubService tennisClubService;
 
-    @Autowired
     public TennisClubController(TennisClubService tennisClubService) {
         this.tennisClubService = tennisClubService;
     }

@@ -1,8 +1,6 @@
 package cz.inqool.tennisapp.domain.court;
 
 import cz.inqool.tennisapp.domain.reservation.Reservation;
-import cz.inqool.tennisapp.domain.tennisClub.TennisClub;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,7 +11,6 @@ import java.util.Optional;
 public class CourtService {
     private final CourtRepository courtRepository;
 
-    @Autowired
     public CourtService(CourtRepository courtRepository) {
         this.courtRepository = courtRepository;
     }
@@ -38,6 +35,9 @@ public class CourtService {
 
     // only soft delete, so update isDeleted to true
     public void deleteCourt(Court court) {
+        if(!court.getReservations().isEmpty()){
+            throw new RuntimeException("Cannot delete court with active reservations.");
+        }
         court.setDeleted(true);
         courtRepository.save(court);
     }
