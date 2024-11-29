@@ -1,5 +1,6 @@
 package cz.inqool.tennisapp.domain.court;
 
+import cz.inqool.tennisapp.domain.surfaceType.SurfaceType;
 import cz.inqool.tennisapp.domain.tennisClub.TennisClub;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -13,6 +14,8 @@ public class Court {
 
     private String name;
 
+    @Enumerated(EnumType.STRING)
+    private SurfaceType surfaceType;
 
     @ManyToOne
     @JoinColumn(name = "tennis_club_id", nullable = false)
