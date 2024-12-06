@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ReservationRepository extends CrudRepository<Reservation, Long> {
-    List<Reservation> findByCourtIdAndDeletedFalse(Long courtId);
+    List<Reservation> findByCourtIdAndDeletedFalse(int courtId);
 
     List<Reservation> findByCustomerPhoneNumberAndDeletedFalse(String customerPhoneNumber);
 

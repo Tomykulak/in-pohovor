@@ -1,12 +1,13 @@
 package cz.inqool.tennisapp.domain.reservation;
 
 import cz.inqool.tennisapp.domain.court.Court;
-import cz.inqool.tennisapp.domain.court.CourtService;
+import cz.inqool.tennisapp.domain.court.CourtRepository;
 import cz.inqool.tennisapp.domain.customer.Customer;
-import cz.inqool.tennisapp.domain.customer.CustomerService;
+import cz.inqool.tennisapp.domain.customer.CustomerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,52 +15,63 @@ import java.util.List;
 @AllArgsConstructor
 public class ReservationService {
     private ReservationRepository reservationRepository;
-    private CourtService courtService;
-    private CustomerService customerService;
-    
+    private CourtRepository courtRepository;
+    private CustomerRepository customerRepository;
 
-    public Reservation getReservationById(int id){
-        return reservationRepository.findById((long) id).orElse(null);
+
+    public List<Reservation> getReservationsByCourtId(int courtId){
+        courtRepository.findById((long) courtId)
+                .orElseThrow(() -> new IllegalArgumentException("Court not found"));
+
+        return reservationRepository.findByCourtIdAndDeletedFalse(courtId);
     }
 
-    public List<Reservation> getReservationsForCourt(int courtId) {
-        return reservationRepository.findByCourtIdOrderByStartTimeAsc(courtId);
+    public List<Reservation> getReservationsByCustomerPhoneNumber(String customerPhoneNumber) {
+        customerRepository.findByPhoneNumber(customerPhoneNumber)
+                .orElseThrow(() -> new IllegalArgumentException("Customer not found"));
+
+        return reservationRepository.findByCustomerPhoneNumberAndDeletedFalse(customerPhoneNumber);
     }
 
-    public List<Reservation> getReservationsByPhoneNumber(String phoneNumber, boolean onlyFuture) {
-        return onlyFuture
-                ? reservationRepository.findByCustomerPhoneNumberAndStartTimeAfter(phoneNumber, LocalDateTime.now())
-                : reservationRepository.findByCustomerPhoneNumber(phoneNumber);
+    public List<Reservation> getUpcomingReservationsByCustomerPhoneNumber(String customerPhoneNumber) {
+        customerRepository.findByPhoneNumber(customerPhoneNumber)
+                .orElseThrow(() -> new IllegalArgumentException("Customer not found"));
+
+        return reservationRepository.findByCustomerPhoneNumberAndReservationTimeEndAfterAndDeletedFalse(customerPhoneNumber, LocalDateTime.now());
     }
 
-    public boolean hasActiveReservations(int courtId) {
-        return reservationRepository.existsActiveReservationsByCourtId(courtId);
-    }
-
-    public Reservation createReservation(int courtId, String customerName, String phoneNumber, LocalDateTime startTime, LocalDateTime endTime) {
-        // Validate overlapping reservations
-        if (reservationRepository.existsByCourtIdAndTimeOverlap(courtId, startTime, endTime)) {
-            throw new IllegalArgumentException("Conflict with existing reservation");
+    private double calculatePrice(double price, LocalDateTime startTime, LocalDateTime endTime, boolean isDoubles){
+        double durationInMinutes = Duration.between(startTime, endTime).toMinutes();
+        double totalCost = price * durationInMinutes;
+        if (isDoubles) {
+            totalCost *= 1.5;
         }
+        return totalCost;
+    }
 
-        // Find or create customer
-        Customer customer = customerService.findOrCreateCustomer(customerName, phoneNumber);
+    public double createReservation(int courtId, String customerName, String customerPhoneNumber, LocalDateTime startTime, LocalDateTime endTime, boolean isDoubles) {
+        Court court = courtRepository.findById((long) courtId)
+                .orElseThrow(() -> new IllegalArgumentException("Court not found"));
 
-        // Get court
-        Court court = courtService.getCourtById(courtId);
-
-        if (court == null) {
-            throw new IllegalArgumentException("Court not found");
+        List<Reservation> existingReservations = reservationRepository.findByCourtIdAndDeletedFalse(courtId);
+        for (Reservation existingReservation : existingReservations) {
+            if (startTime.isBefore(existingReservation.getEndTime()) && endTime.isAfter(existingReservation.getStartTime())) {
+                throw new IllegalArgumentException("Not available at this time.");
+            }
         }
+        // create customer
+        Customer customer = customerRepository.findByPhoneNumber(customerPhoneNumber)
+                .orElseGet(() -> {
+                    Customer newCustomer = new Customer(customerName, customerPhoneNumber);
+                    return customerRepository.save(newCustomer);
+                });
 
-        // Create reservation
-        Reservation reservation = new Reservation();
-        reservation.setCourt(court);
-        reservation.setCustomer(customer);
-        reservation.setStartTime(startTime);
-        reservation.setEndTime(endTime);
+        double price = calculatePrice(court.getSurfaceType().getPricePerMinute(), startTime, endTime, isDoubles);
+        Reservation reservation = new Reservation(court, customer, startTime, endTime, isDoubles, price);
 
-        return reservationRepository.save(reservation);
+        reservationRepository.save(reservation);
+
+        return price;
     }
 
     public Reservation updateReservation(Reservation reservation) {

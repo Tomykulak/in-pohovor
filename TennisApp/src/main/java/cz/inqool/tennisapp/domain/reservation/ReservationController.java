@@ -19,19 +19,21 @@ public class ReservationController {
 
     @GetMapping(value = "/id/{id}", produces = "application/json")
     public ObjectResponse<ReservationResponse> getReservationById(@PathVariable int id) {
+        /*
         Reservation reservation = reservationService
-                .getReservationById(id);
+                .getReservationsByCourtId(id);
         if (reservation == null) {
             throw new NotFoundException();
         }
         return ObjectResponse.of(reservation, ReservationResponse::new);
+
+         */
+        return null;
     }
 
     @GetMapping(value = "/phone-number/{phoneNumber}", produces = "application/json")
-    public ArrayResponse<ReservationResponse> getReservationsByPhoneNumber(
-            @PathVariable String phoneNumber,
-            @RequestParam(required = false, defaultValue = "false") boolean futureOnly) {
-        List<Reservation> reservations = reservationService.getReservationsByPhoneNumber(phoneNumber, futureOnly);
+    public ArrayResponse<ReservationResponse> getReservationsByCustomerPhoneNumber(String customerPhoneNumber) {
+        List<Reservation> reservations = reservationService.getReservationsByCustomerPhoneNumber(customerPhoneNumber);
         return ArrayResponse.of(reservations, ReservationResponse::new);
     }
 
@@ -52,7 +54,7 @@ public class ReservationController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteReservation(@PathVariable int id) {
         Reservation reservation = reservationService
-                .getReservationById(id);
+                .getReservationsByCourtId(id);
         if (reservation == null) {
             throw new NotFoundException();
         }

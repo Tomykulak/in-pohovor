@@ -38,16 +38,18 @@ public class Reservation {
     @JoinColumn(name = "surfaceType_id")
     private SurfaceType surfaceType;
 
+    private boolean isDoubles;
+
     private Double price;
 
     private boolean isDeleted = false;
 
-    public Reservation(Court court, Customer customer, LocalDateTime startTime, LocalDateTime endTime, SurfaceType surfaceType, Double price) {
+    public Reservation(Court court, Customer customer, LocalDateTime startTime, LocalDateTime endTime, boolean isDoubles, Double price) {
         this.court = court;
         this.customer = customer;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.surfaceType = surfaceType;
+        this.isDoubles = isDoubles;
         this.price = price;
     }
 }
