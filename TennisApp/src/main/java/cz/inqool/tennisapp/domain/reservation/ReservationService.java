@@ -75,17 +75,17 @@ public class ReservationService {
     }
 
     public Reservation updateReservation(
-            Long id,
-            Long courtId,
+            int id,
+            int courtId,
             String customerName,
             String customerPhoneNumber,
             LocalDateTime startTime,
             LocalDateTime endTime,
             boolean isDoubles) {
 
-        Reservation reservation = reservationRepository.findById(id)
+        Reservation reservation = reservationRepository.findById((long) id)
                 .orElseThrow(NotFoundException::new);
-        Court court = courtRepository.findById(courtId)
+        Court court = courtRepository.findById((long) courtId)
                 .orElseThrow(NotFoundException::new);
         Customer customer = customerRepository.findByPhoneNumber(customerPhoneNumber)
                 .orElseGet(() -> {
