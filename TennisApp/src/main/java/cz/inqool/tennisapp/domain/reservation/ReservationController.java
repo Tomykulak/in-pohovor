@@ -26,10 +26,10 @@ public class ReservationController {
     @GetMapping(value = "/court/{courtId}")
     @Operation(summary = "Get reservations for a court", description = "Retrieve all reservations for a specific court by its ID.")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Reservations retrieved successfully.",
-                    content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ReservationResponse.class)))),
-            @ApiResponse(responseCode = "400", description = "Invalid court ID."),
-            @ApiResponse(responseCode = "404", description = "Court not found.")
+        @ApiResponse(responseCode = "200", description = "Reservations retrieved successfully.",
+                content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ReservationResponse.class)))),
+        @ApiResponse(responseCode = "400", description = "Invalid court ID."),
+        @ApiResponse(responseCode = "404", description = "Court not found.")
     })
     public ArrayResponse<ReservationResponse> getReservationsByCourtId(@PathVariable int courtId) {
         List<Reservation> reservations = reservationService.getReservationsByCourtId(courtId);
@@ -40,10 +40,10 @@ public class ReservationController {
     @GetMapping("/customer/{phoneNumber}")
     @Operation(summary = "Get reservations by customer phone", description = "Retrieve all reservations associated with a customer's phone number.")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Reservations retrieved successfully.",
-                    content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ReservationResponse.class)))),
-            @ApiResponse(responseCode = "400", description = "Invalid phone number."),
-            @ApiResponse(responseCode = "404", description = "Customer not found.")
+        @ApiResponse(responseCode = "200", description = "Reservations retrieved successfully.",
+                content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ReservationResponse.class)))),
+        @ApiResponse(responseCode = "400", description = "Invalid phone number."),
+        @ApiResponse(responseCode = "404", description = "Customer not found.")
     })
     public ArrayResponse<ReservationResponse> getReservationsByCustomerPhoneNumber(@PathVariable String phoneNumber) {
         List<Reservation> reservations = reservationService.getReservationsByCustomerPhoneNumber(phoneNumber);
@@ -54,10 +54,10 @@ public class ReservationController {
     @GetMapping("/customer/upcoming/{phoneNumber}")
     @Operation(summary = "Get upcoming reservations by phone", description = "Retrieve all upcoming reservations for a customer by phone number.")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Upcoming reservations retrieved successfully.",
-                    content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ReservationResponse.class)))),
-            @ApiResponse(responseCode = "400", description = "Invalid phone number."),
-            @ApiResponse(responseCode = "404", description = "Customer not found or no upcoming reservations.")
+        @ApiResponse(responseCode = "200", description = "Upcoming reservations retrieved successfully.",
+                content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ReservationResponse.class)))),
+        @ApiResponse(responseCode = "400", description = "Invalid phone number."),
+        @ApiResponse(responseCode = "404", description = "Customer not found or no upcoming reservations.")
     })
     public ArrayResponse<ReservationResponse> getUpcomingReservationsByCustomerPhoneNumber(@PathVariable String phoneNumber) {
         List<Reservation> reservations = reservationService.getUpcomingReservationsByCustomerPhoneNumber(phoneNumber);
@@ -68,12 +68,12 @@ public class ReservationController {
     @Operation(summary = "Create a new reservation",
             description = "Add a new reservation for a tennis court.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Reservation created successfully.",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Double.class))),
-            @ApiResponse(responseCode = "400", description = "Invalid input data."),
-            @ApiResponse(responseCode = "404", description = "Court not found."),
-            @ApiResponse(responseCode = "409", description = "Reservation conflict.")
+        @ApiResponse(responseCode = "201", description = "Reservation created successfully.",
+                content = @Content(mediaType = "application/json",
+                        schema = @Schema(implementation = Double.class))),
+        @ApiResponse(responseCode = "400", description = "Invalid input data."),
+        @ApiResponse(responseCode = "404", description = "Court not found."),
+        @ApiResponse(responseCode = "409", description = "Reservation conflict.")
     })
     public ObjectResponse<Double> createReservation(@Valid @RequestBody ReservationRequest reservationRequest) {
         double totalCost = reservationService.createReservation(
@@ -92,9 +92,9 @@ public class ReservationController {
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete reservation", description = "Soft delete a reservation by its ID.")
     @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Reservation deleted successfully."),
-            @ApiResponse(responseCode = "404", description = "Reservation not found."),
-            @ApiResponse(responseCode = "409", description = "Reservation cannot be deleted due to conflicts.")
+        @ApiResponse(responseCode = "204", description = "Reservation deleted successfully."),
+        @ApiResponse(responseCode = "404", description = "Reservation not found."),
+        @ApiResponse(responseCode = "409", description = "Reservation cannot be deleted due to conflicts.")
     })
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteReservation(@PathVariable int id) {

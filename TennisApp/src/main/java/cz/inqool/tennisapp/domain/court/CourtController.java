@@ -25,7 +25,7 @@ public class CourtController {
     @GetMapping("")
     @Operation(summary = "Retrieve all courts.", description = "Fetch a list of all tennis courts.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successfully retrieved courts.")
+        @ApiResponse(responseCode = "200", description = "Successfully retrieved courts.")
     })
     public ArrayResponse<CourtResponse> getAllCourts() {
         List<Court> courts = courtService.getAllCourts();
@@ -35,8 +35,8 @@ public class CourtController {
     @GetMapping("/{id}")
     @Operation(summary = "Retrieve court by ID.", description = "Fetch details of a specific tennis court by its ID.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successfully retrieved court."),
-            @ApiResponse(responseCode = "404", description = "Court not found.")
+        @ApiResponse(responseCode = "200", description = "Successfully retrieved court."),
+        @ApiResponse(responseCode = "404", description = "Court not found.")
     })
     public ObjectResponse<CourtResponse> getCourtById(@PathVariable int id) {
         Court court = courtService.getCourtById(id);
@@ -48,9 +48,9 @@ public class CourtController {
     @Transactional
     @Operation(summary = "Soft delete a court by ID", description = "Mark a tennis court as deleted by setting the 'isDeleted' flag to true.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "Court deleted successfully."),
-            @ApiResponse(responseCode = "404", description = "Court not found."),
-            @ApiResponse(responseCode = "409", description = "Court cannot be deleted because it has active reservations.")
+        @ApiResponse(responseCode = "204", description = "Court deleted successfully."),
+        @ApiResponse(responseCode = "404", description = "Court not found."),
+        @ApiResponse(responseCode = "409", description = "Court cannot be deleted because it has active reservations.")
     })
     public void deleteCourtById(@PathVariable int id) {
         courtService.deleteCourtById(id);
@@ -60,12 +60,12 @@ public class CourtController {
     @Operation(summary = "Update a court by ID",
             description = "Update the details of a tennis court specified by its ID.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Court updated successfully.",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = CourtResponse.class))),
-            @ApiResponse(responseCode = "400", description = "Invalid input data."),
-            @ApiResponse(responseCode = "404", description = "Court not found."),
-            @ApiResponse(responseCode = "409", description = "Conflict occurred while updating the court.")
+        @ApiResponse(responseCode = "200", description = "Court updated successfully.",
+            content = @Content(mediaType = "application/json",
+                schema = @Schema(implementation = CourtResponse.class))),
+        @ApiResponse(responseCode = "400", description = "Invalid input data."),
+        @ApiResponse(responseCode = "404", description = "Court not found."),
+        @ApiResponse(responseCode = "409", description = "Conflict occurred while updating the court.")
     })
     public ObjectResponse<CourtResponse> updateCourt(@PathVariable int id, @Valid @RequestBody Court courtRequest) {
         Court updatedCourt = courtService.updateCourt(id, courtRequest);
@@ -76,10 +76,10 @@ public class CourtController {
     @Operation(summary = "Create a new court",
             description = "Add a new tennis court to the system.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Court created successfully.",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = CourtResponse.class))),
-            @ApiResponse(responseCode = "400", description = "Invalid input data.")
+        @ApiResponse(responseCode = "201", description = "Court created successfully.",
+            content = @Content(mediaType = "application/json",
+                schema = @Schema(implementation = CourtResponse.class))),
+        @ApiResponse(responseCode = "400", description = "Invalid input data.")
     })
     public ObjectResponse<CourtResponse> createCourt(@Valid @RequestBody Court courtRequest) {
         Court createdCourt = courtService.createCourt(courtRequest);

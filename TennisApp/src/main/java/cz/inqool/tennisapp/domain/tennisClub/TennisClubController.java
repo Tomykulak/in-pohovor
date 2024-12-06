@@ -25,7 +25,7 @@ public class TennisClubController {
 
     @Operation(summary = "Retrieve all tennis clubs.", description = "Fetch a list of all tennis clubs with courts.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successfully retrieved courts.")
+        @ApiResponse(responseCode = "200", description = "Successfully retrieved courts.")
     })
     @GetMapping(value = "", produces = "application/json")
     public ArrayResponse<TennisClubResponse> getAllTennisClubs(){
@@ -36,8 +36,8 @@ public class TennisClubController {
     @GetMapping("/{id}")
     @Operation(summary = "Retrieve tennis club by ID.", description = "Fetch details of a specific tennis club ID.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successfully retrieved tennis club."),
-            @ApiResponse(responseCode = "404", description = "Tennis club not found.")
+        @ApiResponse(responseCode = "200", description = "Successfully retrieved tennis club."),
+        @ApiResponse(responseCode = "404", description = "Tennis club not found.")
     })
     public ObjectResponse<TennisClubResponse> getTennisClubById(@PathVariable int id) {
         TennisClub tennisClub = tennisClubService.getTennisClubById(id);
