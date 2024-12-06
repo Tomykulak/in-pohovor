@@ -1,6 +1,7 @@
 package cz.inqool.tennisapp.domain.court;
 
 import cz.inqool.tennisapp.utils.exceptions.AlreadyDeletedException;
+import cz.inqool.tennisapp.utils.exceptions.BadRequestException;
 import cz.inqool.tennisapp.utils.exceptions.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,23 +23,13 @@ public class CourtService {
                 .orElseThrow(NotFoundException::new);
     }
 
-    public Court createCourt(int id, Court updateCourt) {
-        Court court = courtRepository.findById((long) id)
-                .orElseThrow(NotFoundException::new);
-
-        if (court.isDeleted()) {
-            throw new AlreadyDeletedException();
+    public Court createCourt(Court court) {
+        if (court.getName() == null || court.getName().trim().isEmpty()) {
+            throw new BadRequestException();
         }
-        if (updateCourt.getName() == null || updateCourt.getName().trim().isEmpty()) {
-            throw new IllegalArgumentException("Court name required.");
+        if (court.getSurfaceType() == null) {
+            throw new BadRequestException();
         }
-        if (updateCourt.getSurfaceType() == null) {
-            throw new IllegalArgumentException("Surface type required.");
-        }
-        // set params
-        court.setName(updateCourt.getName());
-        court.setSurfaceType(updateCourt.getSurfaceType());
-        // save
         return courtRepository.save(court);
     }
 
@@ -51,10 +42,10 @@ public class CourtService {
         }
 
         if (updatedCourt.getName() == null || updatedCourt.getName().trim().isEmpty()) {
-            throw new IllegalArgumentException("Court name required");
+            throw new BadRequestException();
         }
         if (updatedCourt.getSurfaceType() == null) {
-            throw new IllegalArgumentException("Surface type required");
+            throw new BadRequestException();
         }
 
         court.setName(updatedCourt.getName());

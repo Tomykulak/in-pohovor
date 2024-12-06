@@ -75,4 +75,20 @@ public class CourtController {
         return ObjectResponse.of(updatedCourt, CourtResponse::new);
     }
 
+    @PostMapping
+    @Operation(summary = "Create a new court",
+            description = "Add a new tennis court to the system.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Court created successfully.",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CourtResponse.class))),
+            @ApiResponse(responseCode = "400", description = "Invalid input data.")
+    })
+    public ObjectResponse<CourtResponse> createCourt(@Valid @RequestBody Court courtRequest) {
+        Court createdCourt = courtService.createCourt(courtRequest);
+        return ObjectResponse.of(createdCourt, CourtResponse::new);
+    }
+
+
+
 }
