@@ -14,7 +14,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -49,25 +51,7 @@ public class CourtController {
     })
     public ObjectResponse<CourtResponse> getCourtById(@PathVariable int id) {
         Court court = courtService.getCourtById(id);
-        if (court == null) {
-            throw new NotFoundException();
-        }
         return ObjectResponse.of(court, CourtResponse::new);
-    }
-
-    @GetMapping("/{courtId}/reservation")
-    @Operation(summary = "Retrieve reservations for a court", description = "Fetch all reservations for a specific tennis court.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successfully retrieved reservations."),
-            @ApiResponse(responseCode = "404", description = "Court not found.")
-    })
-    public ArrayResponse<ReservationResponse> getReservationsByCourtId(@PathVariable int courtId) {
-        Court court = courtService.getCourtById(courtId);
-        if (court == null) {
-            throw new NotFoundException();
-        }
-        List<Reservation> reservations = reservationService.getReservationsForCourt(courtId);
-        return ArrayResponse.of(reservations, ReservationResponse::new);
     }
 
     @DeleteMapping("/{id}")
@@ -80,18 +64,12 @@ public class CourtController {
             @ApiResponse(responseCode = "409", description = "Court cannot be deleted because it has active reservations.")
     })
     public void deleteCourtById(@PathVariable int id) {
-        Court court = courtService.getCourtById(id);
-        if (court == null) {
-            throw new NotFoundException();
-        }
-        // Check if the court has active (non-deleted) reservations
-        boolean hasActiveReservations = court.getReservations().stream()
-                .anyMatch(reservation -> !reservation.isDeleted());
+        courtService.deleteCourtById(id);
+    }
 
-        if (hasActiveReservations) {
-            throw new ActiveReservationsException("Court with ID " + id + " has active reservations and cannot be deleted.");
-        }
-
-        courtService.deleteCourtById(court);
+    @PutMapping("/{id}")
+    public ObjectResponse<CourtResponse> updateCourt(@PathVariable int id, @Valid @RequestBody Court court) {
+        court = courtService.updateCourt(id, court);
+        return ObjectResponse.of(court, CourtResponse::new);
     }
 }
