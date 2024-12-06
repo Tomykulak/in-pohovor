@@ -1,27 +1,32 @@
 package cz.inqool.tennisapp.domain.surfaceType;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 
 @Data
 @Entity
-@Getter
-@AllArgsConstructor
 @NoArgsConstructor
 public class SurfaceType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
+    @NotBlank
+    @Column(unique = true)
     private String name;
 
-    private int cost;
+    @NotNull
+    private double pricePerMinute;
+
+    private boolean deleted = false;
+
+    public SurfaceType(String name, double pricePerMinute) {
+        this.name = name;
+        this.pricePerMinute = pricePerMinute;
+    }
 }

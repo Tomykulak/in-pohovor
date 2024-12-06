@@ -2,7 +2,9 @@ package cz.inqool.tennisapp.domain.reservation;
 
 import cz.inqool.tennisapp.domain.court.Court;
 import cz.inqool.tennisapp.domain.customer.Customer;
+import cz.inqool.tennisapp.domain.surfaceType.SurfaceType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -19,18 +21,33 @@ public class Reservation {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "court_id", nullable = false)
+    @JoinColumn(name = "court_id")
     private Court court;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @Column(nullable = false)
+    @NotNull
     private LocalDateTime startTime;
 
-    @Column(nullable = false)
+    @NotNull
     private LocalDateTime endTime;
 
-    private boolean isDeleted;
+    @ManyToOne
+    @JoinColumn(name = "surfaceType_id")
+    private SurfaceType surfaceType;
+
+    private Double price;
+
+    private boolean isDeleted = false;
+
+    public Reservation(Court court, Customer customer, LocalDateTime startTime, LocalDateTime endTime, SurfaceType surfaceType, Double price) {
+        this.court = court;
+        this.customer = customer;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.surfaceType = surfaceType;
+        this.price = price;
+    }
 }
