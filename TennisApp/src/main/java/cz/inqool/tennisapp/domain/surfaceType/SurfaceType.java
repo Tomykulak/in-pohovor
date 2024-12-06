@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class SurfaceType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @NotBlank
     @Column(unique = true)

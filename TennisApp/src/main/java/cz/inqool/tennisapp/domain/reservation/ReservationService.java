@@ -52,7 +52,6 @@ public class ReservationService {
     public double createReservation(int courtId, String customerName, String customerPhoneNumber, LocalDateTime startTime, LocalDateTime endTime, boolean isDoubles) {
         Court court = courtRepository.findById((long) courtId)
                 .orElseThrow(() -> new IllegalArgumentException("Court not found"));
-
         List<Reservation> existingReservations = reservationRepository.findByCourtIdAndDeletedFalse(courtId);
         for (Reservation existingReservation : existingReservations) {
             if (startTime.isBefore(existingReservation.getEndTime()) && endTime.isAfter(existingReservation.getStartTime())) {
@@ -109,7 +108,10 @@ public class ReservationService {
     public void deleteReservation(int reservationId) {
         Reservation reservation = reservationRepository.findById((long) reservationId)
                 .orElseThrow(() -> new IllegalArgumentException("Reservation not found"));
-        // soft delete
+        if (reservation.isDeleted()){
+            throw new IllegalArgumentException("Reservation is already deleted");
+        }
+
         reservation.setDeleted(true);
         reservationRepository.save(reservation);
     }
