@@ -13,6 +13,7 @@ public class Court {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
     // attribute for softDelete
     private boolean deleted = false;

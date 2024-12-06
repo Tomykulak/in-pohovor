@@ -1,7 +1,6 @@
 package cz.inqool.tennisapp.domain.reservation;
 
 import org.springframework.data.repository.CrudRepository;
-
 import java.time.LocalDateTime;
 import java.util.List;
 

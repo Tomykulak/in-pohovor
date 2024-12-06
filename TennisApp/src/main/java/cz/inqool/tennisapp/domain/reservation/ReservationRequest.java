@@ -1,18 +1,31 @@
 package cz.inqool.tennisapp.domain.reservation;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
-
 import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
 public class ReservationRequest {
     private int courtId;
+
+    @NotBlank
     private String customerName;
+
+    @NotBlank
     private String phoneNumber;
+
+    @NotNull
     private LocalDateTime startTime;
+
+    @NotNull
     private LocalDateTime endTime;
+
+    @NotNull
+    private boolean isDoubles;
+
+    @NotNull
+    public boolean getIsDoubles() {
+        return isDoubles;
+    }
 }

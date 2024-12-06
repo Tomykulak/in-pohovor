@@ -5,8 +5,6 @@ import cz.inqool.tennisapp.utils.exceptions.BadRequestException;
 import cz.inqool.tennisapp.utils.exceptions.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
-
 import java.util.List;
 
 @Service

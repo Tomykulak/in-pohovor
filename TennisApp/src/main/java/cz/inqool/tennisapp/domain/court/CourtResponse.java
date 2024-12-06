@@ -4,17 +4,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class CourtResponse{
     private int id;
+
     private String name;
+
     private boolean isDeleted;
+
     private int tennisClubId;
 
     private String surfaceType;
+
     private double surfaceCost;
 
     public CourtResponse(Court court) {

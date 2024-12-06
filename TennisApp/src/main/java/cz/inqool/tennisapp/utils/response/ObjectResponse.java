@@ -2,7 +2,6 @@ package cz.inqool.tennisapp.utils.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
 import java.util.function.Function;
 
 @Getter

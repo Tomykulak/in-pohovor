@@ -1,9 +1,7 @@
 package cz.inqool.tennisapp.domain.tennisClub;
 
-import cz.inqool.tennisapp.domain.court.Court;
 import cz.inqool.tennisapp.utils.exceptions.NotFoundException;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 

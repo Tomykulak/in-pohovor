@@ -4,10 +4,12 @@ import cz.inqool.tennisapp.domain.court.Court;
 import cz.inqool.tennisapp.domain.court.CourtRepository;
 import cz.inqool.tennisapp.domain.customer.Customer;
 import cz.inqool.tennisapp.domain.customer.CustomerRepository;
+import cz.inqool.tennisapp.utils.exceptions.AlreadyDeletedException;
+import cz.inqool.tennisapp.utils.exceptions.BadRequestException;
+import cz.inqool.tennisapp.utils.exceptions.ConflictException;
 import cz.inqool.tennisapp.utils.exceptions.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -53,10 +55,27 @@ public class ReservationService {
     public double createReservation(int courtId, String customerName, String customerPhoneNumber, LocalDateTime startTime, LocalDateTime endTime, boolean isDoubles) {
         Court court = courtRepository.findById((long) courtId)
                 .orElseThrow(NotFoundException::new);
+
+        if (court.isDeleted()) {
+            throw new AlreadyDeletedException();
+        }
+
+        // Validate input data
+        if (customerName == null || customerName.trim().isEmpty()) {
+            throw new BadRequestException();
+        }
+        if (customerPhoneNumber == null || customerPhoneNumber.trim().isEmpty()) {
+            throw new BadRequestException();
+        }
+        if (startTime == null || endTime == null) {
+            throw new BadRequestException();
+        }
+
         List<Reservation> existingReservations = reservationRepository.findByCourtIdAndDeletedFalse(courtId);
+
         for (Reservation existingReservation : existingReservations) {
-            if (startTime.isBefore(existingReservation.getEndTime()) && endTime.isAfter(existingReservation.getStartTime())) {
-                throw new IllegalArgumentException("Not available at this time.");
+            if (endTime.isAfter(existingReservation.getStartTime()) && startTime.isBefore(existingReservation.getEndTime())) {
+                throw new ConflictException();
             }
         }
         // create customer
@@ -109,11 +128,14 @@ public class ReservationService {
     public void deleteReservation(int reservationId) {
         Reservation reservation = reservationRepository.findById((long) reservationId)
                 .orElseThrow(NotFoundException::new);
-        if (reservation.isDeleted()){
-            throw new IllegalArgumentException("Reservation is already deleted");
+
+        if (reservation.isDeleted()) {
+            throw new AlreadyDeletedException();
         }
 
+        // soft delete
         reservation.setDeleted(true);
         reservationRepository.save(reservation);
     }
+
 }
