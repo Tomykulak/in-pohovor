@@ -19,4 +19,7 @@ public interface ReservationRepository extends CrudRepository<Reservation, Long>
 
     @Query("SELECT COUNT(r) > 0 FROM Reservation r WHERE r.court.id = :courtId AND r.startTime < :endTime AND r.endTime > :startTime AND r.isDeleted = false")
     boolean existsByCourtIdAndTimeOverlap(@Param("courtId") int courtId, @Param("startTime") LocalDateTime startTime, @Param("endTime") LocalDateTime endTime);
+
+    @Query("SELECT COUNT(r) > 0 FROM Reservation r WHERE r.court.id = :courtId AND r.isDeleted = false")
+    boolean existsActiveReservationsByCourtId(@Param("courtId") int courtId);
 }

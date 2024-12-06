@@ -62,5 +62,5 @@ INSERT INTO customer (name, phone_number, is_deleted) VALUES
 INSERT INTO reservation (court_id, customer_id, start_time, end_time, is_deleted) VALUES
     ((SELECT id FROM court WHERE name = 'Court 1.0 works, yupie!'), (SELECT id FROM customer WHERE phone_number = '123456789'), '2024-12-11 10:00:00', '2024-12-12 11:00:00', false),
     ((SELECT id FROM court WHERE name = 'Court 1.0 works, yupie!'), (SELECT id FROM customer WHERE phone_number = '123456789'), '2024-12-12 10:00:00', '2024-12-13 11:00:00', false),
-    ((SELECT id FROM court WHERE name = 'Court 1.1 works, yupie!'), (SELECT id FROM customer WHERE phone_number = '987654321'), '2024-12-01 12:00:00', '2024-12-01 13:00:00', false),
+    ((SELECT id FROM court WHERE name = 'Court 1.1 works, yupie!'), (SELECT id FROM customer WHERE phone_number = '987654321'), '2024-12-01 12:00:00', '2024-12-01 13:00:00', true),
     ((SELECT id FROM court WHERE name = 'Court 2.0 works, yupie!'), (SELECT id FROM customer WHERE phone_number = '123456789'), '2024-12-02 09:00:00', '2024-12-02 10:00:00', false);

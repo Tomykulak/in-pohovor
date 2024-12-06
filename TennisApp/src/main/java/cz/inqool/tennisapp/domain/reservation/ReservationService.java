@@ -36,6 +36,10 @@ public class ReservationService {
                 : reservationRepository.findByCustomerPhoneNumber(phoneNumber);
     }
 
+    public boolean hasActiveReservations(int courtId) {
+        return reservationRepository.existsActiveReservationsByCourtId(courtId);
+    }
+
     public Reservation createReservation(int courtId, String customerName, String phoneNumber, LocalDateTime startTime, LocalDateTime endTime) {
         // Validate overlapping reservations
         if (reservationRepository.existsByCourtIdAndTimeOverlap(courtId, startTime, endTime)) {

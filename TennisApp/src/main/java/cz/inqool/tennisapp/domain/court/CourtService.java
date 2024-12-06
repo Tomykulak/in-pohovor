@@ -1,11 +1,11 @@
 package cz.inqool.tennisapp.domain.court;
 
 import cz.inqool.tennisapp.domain.reservation.Reservation;
+import cz.inqool.tennisapp.utils.exceptions.ActiveReservationsException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CourtService {
@@ -34,9 +34,9 @@ public class CourtService {
     }
 
     // only soft delete, so update isDeleted to true
-    public void deleteCourt(Court court) {
+    public void deleteCourtById(Court court) {
         if(!court.getReservations().isEmpty()){
-            throw new RuntimeException("Cannot delete court with active reservations.");
+            throw new ActiveReservationsException("Cannot delete court with active reservations.");
         }
         court.setDeleted(true);
         courtRepository.save(court);
