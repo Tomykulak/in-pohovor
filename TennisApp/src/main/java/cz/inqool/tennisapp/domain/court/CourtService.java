@@ -27,9 +27,14 @@ public class CourtService {
         if (court.getName() == null || court.getName().trim().isEmpty()) {
             throw new BadRequestException();
         }
-        if (court.getSurfaceType() == null) {
+        if (court.getSurfaceType() == null || court.getSurfaceType().getId() <= 0) {
             throw new BadRequestException();
         }
+
+        if (court.getTennisClub() == null || court.getTennisClub().getId() <= 0) {
+            throw new BadRequestException();
+        }
+
         return courtRepository.save(court);
     }
 
