@@ -40,7 +40,7 @@ public class ReservationService {
         return reservationRepository.findByCustomerPhoneNumberAndReservationTimeEndAfterAndDeletedFalse(customerPhoneNumber, LocalDateTime.now());
     }
 
-    private double calculatePrice(double price, LocalDateTime startTime, LocalDateTime endTime, boolean isDoubles){
+    private double calculateTotalCost(double price, LocalDateTime startTime, LocalDateTime endTime, boolean isDoubles){
         double durationInMinutes = Duration.between(startTime, endTime).toMinutes();
         double totalCost = price * durationInMinutes;
         if (isDoubles) {
@@ -66,15 +66,42 @@ public class ReservationService {
                     return customerRepository.save(newCustomer);
                 });
 
-        double price = calculatePrice(court.getSurfaceType().getPricePerMinute(), startTime, endTime, isDoubles);
-        Reservation reservation = new Reservation(court, customer, startTime, endTime, isDoubles, price);
+        double totalCost = calculateTotalCost(court.getSurfaceType().getPricePerMinute(), startTime, endTime, isDoubles);
+        Reservation reservation = new Reservation(court, customer, startTime, endTime, isDoubles, totalCost);
 
         reservationRepository.save(reservation);
 
-        return price;
+        return totalCost;
     }
 
-    public Reservation updateReservation(Reservation reservation) {
+    public Reservation updateReservation(
+            Long id,
+            Long courtId,
+            String customerName,
+            String customerPhoneNumber,
+            LocalDateTime startTime,
+            LocalDateTime endTime,
+            boolean isDoubles) {
+
+        Reservation reservation = reservationRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Reservation not found"));
+        Court court = courtRepository.findById(courtId)
+                .orElseThrow(() -> new IllegalArgumentException("Court not found"));
+        Customer customer = customerRepository.findByPhoneNumber(customerPhoneNumber)
+                .orElseGet(() -> {
+                    Customer newCustomer = new Customer(customerName, customerPhoneNumber);
+                    return customerRepository.save(newCustomer);
+                });
+
+        double totalCost = calculateTotalCost(court.getSurfaceType().getPricePerMinute(), startTime, endTime, isDoubles);
+
+        reservation.setCourt(court);
+        reservation.setCustomer(customer);
+        reservation.setStartTime(startTime);
+        reservation.setEndTime(endTime);
+        reservation.setDoubles(isDoubles);
+        reservation.setPrice(totalCost);
+
         return reservationRepository.save(reservation);
     }
 
