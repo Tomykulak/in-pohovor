@@ -16,7 +16,7 @@ public class ReservationController {
     public ReservationController(ReservationService reservationService) {
         this.reservationService = reservationService;
     }
-
+    /**
     @GetMapping(value = "/id/{id}", produces = "application/json")
     public ObjectResponse<ReservationResponse> getReservationById(@PathVariable int id) {
         /*
@@ -27,7 +27,7 @@ public class ReservationController {
         }
         return ObjectResponse.of(reservation, ReservationResponse::new);
 
-         */
+
         return null;
     }
 
@@ -60,4 +60,5 @@ public class ReservationController {
         }
         reservationService.deleteReservation(reservation.getId());
     }
+    **/
 }

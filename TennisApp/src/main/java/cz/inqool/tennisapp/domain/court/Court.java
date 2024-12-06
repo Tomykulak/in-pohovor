@@ -1,13 +1,10 @@
 package cz.inqool.tennisapp.domain.court;
 
-import cz.inqool.tennisapp.domain.reservation.Reservation;
 import cz.inqool.tennisapp.domain.surfaceType.SurfaceType;
 import cz.inqool.tennisapp.domain.tennisClub.TennisClub;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Entity
 @Data
@@ -18,7 +15,7 @@ public class Court {
     private int id;
     private String name;
     // attribute for softDelete
-    private boolean isDeleted = false;
+    private boolean deleted = false;
 
     // linked to surface
     @ManyToOne

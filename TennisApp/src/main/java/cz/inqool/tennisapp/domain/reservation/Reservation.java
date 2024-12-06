@@ -42,7 +42,7 @@ public class Reservation {
 
     private Double price;
 
-    private boolean isDeleted = false;
+    private boolean deleted = false;
 
     public Reservation(Court court, Customer customer, LocalDateTime startTime, LocalDateTime endTime, boolean isDoubles, Double price) {
         this.court = court;

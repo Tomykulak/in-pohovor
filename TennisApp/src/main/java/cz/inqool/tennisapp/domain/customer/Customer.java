@@ -18,7 +18,7 @@ public class Customer {
     @Column(unique = true)
     private String phoneNumber;
 
-    private boolean isDeleted = false;
+    private boolean deleted = false;
 
     public Customer(String name, String phoneNumber) {
         this.name = name;

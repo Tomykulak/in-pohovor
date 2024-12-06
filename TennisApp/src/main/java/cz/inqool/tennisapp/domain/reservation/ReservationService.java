@@ -4,6 +4,7 @@ import cz.inqool.tennisapp.domain.court.Court;
 import cz.inqool.tennisapp.domain.court.CourtRepository;
 import cz.inqool.tennisapp.domain.customer.Customer;
 import cz.inqool.tennisapp.domain.customer.CustomerRepository;
+import cz.inqool.tennisapp.utils.exceptions.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,23 +22,23 @@ public class ReservationService {
 
     public List<Reservation> getReservationsByCourtId(int courtId){
         courtRepository.findById((long) courtId)
-                .orElseThrow(() -> new IllegalArgumentException("Court not found"));
+                .orElseThrow(NotFoundException::new);
 
         return reservationRepository.findByCourtIdAndDeletedFalse(courtId);
     }
 
     public List<Reservation> getReservationsByCustomerPhoneNumber(String customerPhoneNumber) {
         customerRepository.findByPhoneNumber(customerPhoneNumber)
-                .orElseThrow(() -> new IllegalArgumentException("Customer not found"));
+                .orElseThrow(NotFoundException::new);
 
         return reservationRepository.findByCustomerPhoneNumberAndDeletedFalse(customerPhoneNumber);
     }
 
     public List<Reservation> getUpcomingReservationsByCustomerPhoneNumber(String customerPhoneNumber) {
         customerRepository.findByPhoneNumber(customerPhoneNumber)
-                .orElseThrow(() -> new IllegalArgumentException("Customer not found"));
+                .orElseThrow(NotFoundException::new);
 
-        return reservationRepository.findByCustomerPhoneNumberAndReservationTimeEndAfterAndDeletedFalse(customerPhoneNumber, LocalDateTime.now());
+        return reservationRepository.findByCustomerPhoneNumberAndEndTimeAfterAndDeletedFalse(customerPhoneNumber, LocalDateTime.now());
     }
 
     private double calculateTotalCost(double price, LocalDateTime startTime, LocalDateTime endTime, boolean isDoubles){
@@ -51,7 +52,7 @@ public class ReservationService {
 
     public double createReservation(int courtId, String customerName, String customerPhoneNumber, LocalDateTime startTime, LocalDateTime endTime, boolean isDoubles) {
         Court court = courtRepository.findById((long) courtId)
-                .orElseThrow(() -> new IllegalArgumentException("Court not found"));
+                .orElseThrow(NotFoundException::new);
         List<Reservation> existingReservations = reservationRepository.findByCourtIdAndDeletedFalse(courtId);
         for (Reservation existingReservation : existingReservations) {
             if (startTime.isBefore(existingReservation.getEndTime()) && endTime.isAfter(existingReservation.getStartTime())) {
@@ -83,9 +84,9 @@ public class ReservationService {
             boolean isDoubles) {
 
         Reservation reservation = reservationRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Reservation not found"));
+                .orElseThrow(NotFoundException::new);
         Court court = courtRepository.findById(courtId)
-                .orElseThrow(() -> new IllegalArgumentException("Court not found"));
+                .orElseThrow(NotFoundException::new);
         Customer customer = customerRepository.findByPhoneNumber(customerPhoneNumber)
                 .orElseGet(() -> {
                     Customer newCustomer = new Customer(customerName, customerPhoneNumber);
@@ -107,7 +108,7 @@ public class ReservationService {
 
     public void deleteReservation(int reservationId) {
         Reservation reservation = reservationRepository.findById((long) reservationId)
-                .orElseThrow(() -> new IllegalArgumentException("Reservation not found"));
+                .orElseThrow(NotFoundException::new);
         if (reservation.isDeleted()){
             throw new IllegalArgumentException("Reservation is already deleted");
         }

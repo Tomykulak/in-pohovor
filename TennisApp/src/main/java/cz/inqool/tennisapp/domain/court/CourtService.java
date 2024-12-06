@@ -1,5 +1,6 @@
 package cz.inqool.tennisapp.domain.court;
 
+import cz.inqool.tennisapp.utils.exceptions.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +18,12 @@ public class CourtService {
 
     public Court getCourtById(int id) {
         return courtRepository.findById((long) id)
-                .orElseThrow(() -> new IllegalArgumentException("Court not found."));
+                .orElseThrow(NotFoundException::new);
     }
 
     public Court createCourt(int id, Court updateCourt) {
         Court court = courtRepository.findById((long) id)
-                .orElseThrow(() -> new IllegalArgumentException("Court not found."));
+                .orElseThrow(NotFoundException::new);
 
         if (court.isDeleted()) {
             throw new IllegalArgumentException("Cannot update a deleted court.");
@@ -42,7 +43,7 @@ public class CourtService {
 
     public Court updateCourt(int id, Court updatedCourt) {
         Court court = courtRepository.findById((long) id)
-                .orElseThrow(() -> new IllegalArgumentException("Court not found"));
+                .orElseThrow(NotFoundException::new);
 
         if (court.isDeleted()) {
             throw new IllegalArgumentException("Cannot update deleted court.");
@@ -63,7 +64,7 @@ public class CourtService {
     // only soft delete, so update isDeleted to true
     public void deleteCourtById(int id) {
         Court court = courtRepository.findById((long) id)
-                .orElseThrow(() -> new IllegalArgumentException("Court not found."));
+                .orElseThrow(NotFoundException::new);
 
         if (court.isDeleted()) {
             throw new IllegalArgumentException("Court already deleted.");

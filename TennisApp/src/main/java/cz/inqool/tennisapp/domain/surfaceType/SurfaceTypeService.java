@@ -18,6 +18,7 @@ public class SurfaceTypeService {
         if (surfaceType.getName() == null) {
             throw new IllegalArgumentException("surfaceType name is null");
         }
+
         return surfaceTypeRepository.save(surfaceType);
     }
 
@@ -31,5 +32,17 @@ public class SurfaceTypeService {
 
         surface.setDeleted(true);
         surfaceTypeRepository.save(surface);
+    }
+
+    public SurfaceType updateSurfaceType(int surfaceTypeId, SurfaceType surfaceType) throws IllegalArgumentException {
+        SurfaceType existingSurfaceType = surfaceTypeRepository.findById((long) surfaceTypeId)
+                .orElseThrow(() -> new IllegalArgumentException("SurfaceType not found"));
+        if (surfaceType.getName() == null) {
+            throw new IllegalArgumentException("SurfaceType name cannot be null");
+        }
+
+        existingSurfaceType.setName(surfaceType.getName());
+        existingSurfaceType.setPricePerMinute(surfaceType.getPricePerMinute());
+        return surfaceTypeRepository.save(existingSurfaceType);
     }
 }
