@@ -1,5 +1,6 @@
 package cz.inqool.tennisapp.domain.court;
 
+import cz.inqool.tennisapp.utils.exceptions.AlreadyDeletedException;
 import cz.inqool.tennisapp.utils.exceptions.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class CourtService {
                 .orElseThrow(NotFoundException::new);
 
         if (court.isDeleted()) {
-            throw new IllegalArgumentException("Cannot update a deleted court.");
+            throw new AlreadyDeletedException();
         }
         if (updateCourt.getName() == null || updateCourt.getName().trim().isEmpty()) {
             throw new IllegalArgumentException("Court name required.");
@@ -46,7 +47,7 @@ public class CourtService {
                 .orElseThrow(NotFoundException::new);
 
         if (court.isDeleted()) {
-            throw new IllegalArgumentException("Cannot update deleted court.");
+            throw new AlreadyDeletedException();
         }
 
         if (updatedCourt.getName() == null || updatedCourt.getName().trim().isEmpty()) {
@@ -67,7 +68,7 @@ public class CourtService {
                 .orElseThrow(NotFoundException::new);
 
         if (court.isDeleted()) {
-            throw new IllegalArgumentException("Court already deleted.");
+            throw new AlreadyDeletedException();
         }
         court.setDeleted(true);
         courtRepository.save(court);

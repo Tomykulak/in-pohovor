@@ -1,6 +1,7 @@
 package cz.inqool.tennisapp.domain.tennisClub;
 
 import cz.inqool.tennisapp.domain.court.Court;
+import cz.inqool.tennisapp.utils.exceptions.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,7 +17,8 @@ public class TennisClubService {
     }
 
     public TennisClub getTennisClubById(int id) {
-        return tennisClubRepository.findById((long) id).orElse(null);
+        return tennisClubRepository.findById((long) id)
+                .orElseThrow(NotFoundException::new);
     }
 
     public List<TennisClub> getAllTennisClubs() {
@@ -25,9 +27,4 @@ public class TennisClubService {
         return tennisClubs;
     }
 
-    public List<Court> getAllCourts() {
-        List<Court> courts = new ArrayList<>();
-        tennisClubRepository.findAll();
-        return courts;
-    }
 }

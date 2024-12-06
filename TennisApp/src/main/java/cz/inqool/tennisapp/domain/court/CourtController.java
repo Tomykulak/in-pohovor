@@ -1,10 +1,5 @@
 package cz.inqool.tennisapp.domain.court;
 
-import cz.inqool.tennisapp.domain.reservation.Reservation;
-import cz.inqool.tennisapp.domain.reservation.ReservationResponse;
-import cz.inqool.tennisapp.domain.reservation.ReservationService;
-import cz.inqool.tennisapp.utils.exceptions.ActiveReservationsException;
-import cz.inqool.tennisapp.utils.exceptions.NotFoundException;
 import cz.inqool.tennisapp.utils.response.ArrayResponse;
 import cz.inqool.tennisapp.utils.response.ObjectResponse;
 
@@ -19,7 +14,6 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,7 +26,7 @@ public class CourtController {
     private final CourtService courtService;
 
     @GetMapping("")
-    @Operation(summary = "Retrieve all courts", description = "Fetch a list of all tennis courts.")
+    @Operation(summary = "Retrieve all courts.", description = "Fetch a list of all tennis courts.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved courts.")
     })
@@ -42,7 +36,7 @@ public class CourtController {
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Retrieve court by ID", description = "Fetch details of a specific tennis court by its ID.")
+    @Operation(summary = "Retrieve court by ID.", description = "Fetch details of a specific tennis court by its ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved court."),
             @ApiResponse(responseCode = "404", description = "Court not found.")
