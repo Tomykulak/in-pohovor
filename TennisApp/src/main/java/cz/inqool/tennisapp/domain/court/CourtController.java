@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -45,7 +44,6 @@ public class CourtController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @Transactional
     @Operation(summary = "Soft delete a court by ID", description = "Mark a tennis court as deleted by setting the 'isDeleted' flag to true.")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "204", description = "Court deleted successfully."),
