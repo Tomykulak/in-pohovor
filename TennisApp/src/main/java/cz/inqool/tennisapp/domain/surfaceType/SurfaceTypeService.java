@@ -1,5 +1,8 @@
 package cz.inqool.tennisapp.domain.surfaceType;
 
+import cz.inqool.tennisapp.utils.exceptions.AlreadyDeletedException;
+import cz.inqool.tennisapp.utils.exceptions.BadRequestException;
+import cz.inqool.tennisapp.utils.exceptions.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -15,7 +18,7 @@ public class SurfaceTypeService {
 
     public SurfaceType createSurfaceType(SurfaceType surfaceType) {
         if (surfaceType.getName() == null) {
-            throw new IllegalArgumentException("surfaceType name is null");
+            throw new BadRequestException();
         }
 
         return surfaceTypeRepository.save(surfaceType);
@@ -23,10 +26,10 @@ public class SurfaceTypeService {
 
     public void deleteSurfaceType(int surfaceTypeId) {
         SurfaceType surface = surfaceTypeRepository.findById((long) surfaceTypeId)
-                .orElseThrow(() -> new IllegalArgumentException("SurfaceType not found"));
+                .orElseThrow(NotFoundException::new);
 
         if (surface.isDeleted()){
-            throw new IllegalArgumentException("SurfaceType already deleted");
+            throw new AlreadyDeletedException();
         }
 
         surface.setDeleted(true);
@@ -35,9 +38,9 @@ public class SurfaceTypeService {
 
     public SurfaceType updateSurfaceType(int surfaceTypeId, SurfaceType surfaceType) throws IllegalArgumentException {
         SurfaceType existingSurfaceType = surfaceTypeRepository.findById((long) surfaceTypeId)
-                .orElseThrow(() -> new IllegalArgumentException("SurfaceType not found"));
+                .orElseThrow(NotFoundException::new);
         if (surfaceType.getName() == null) {
-            throw new IllegalArgumentException("SurfaceType name cannot be null");
+            throw new BadRequestException();
         }
 
         existingSurfaceType.setName(surfaceType.getName());
