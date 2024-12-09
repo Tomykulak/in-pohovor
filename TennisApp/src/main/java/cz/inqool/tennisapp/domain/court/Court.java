@@ -1,7 +1,6 @@
 package cz.inqool.tennisapp.domain.court;
 
 import cz.inqool.tennisapp.domain.surfaceType.SurfaceType;
-import cz.inqool.tennisapp.domain.tennisClub.TennisClub;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,14 +22,9 @@ public class Court {
     @JoinColumn(name = "surface_type_id")
     private SurfaceType surfaceType;
 
-    // linked to tennisClub
-    @ManyToOne
-    @JoinColumn(name = "tennis_club_id")
-    private TennisClub tennisClub;
 
-    public Court(String name, SurfaceType surfaceType, TennisClub tennisClub) {
+    public Court(String name, SurfaceType surfaceType) {
         this.name = name;
         this.surfaceType = surfaceType;
-        this.tennisClub = tennisClub;
     }
 }

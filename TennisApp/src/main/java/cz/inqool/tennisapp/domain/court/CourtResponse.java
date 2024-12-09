@@ -14,8 +14,6 @@ public class CourtResponse{
 
     private boolean isDeleted;
 
-    private int tennisClubId;
-
     private String surfaceType;
 
     private double surfaceCost;
@@ -23,12 +21,6 @@ public class CourtResponse{
     public CourtResponse(Court court) {
         this.id = court.getId();
         this.name = court.getName();
-
-        if (court.getTennisClub() != null) {
-            this.tennisClubId = court.getTennisClub().getId();
-        } else {
-            this.tennisClubId = 0;
-        }
 
         if (court.getSurfaceType() != null) {
             this.surfaceType = court.getSurfaceType().getName();
