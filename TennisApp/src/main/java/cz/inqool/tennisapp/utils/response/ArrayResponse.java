@@ -16,11 +16,8 @@ public class ArrayResponse<T> {
         List<T> responses = items.stream()
                 .map(mapper)
                 .toList();
-        int version = 1; // example of meta information
         return new ArrayResponse<>(responses, responses.size());
     }
-
-    // Here is place for meta information about items:
 
     int count;
 
