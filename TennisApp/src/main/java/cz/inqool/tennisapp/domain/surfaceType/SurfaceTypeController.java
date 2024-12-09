@@ -64,6 +64,7 @@ public class SurfaceTypeController {
         @ApiResponse(responseCode = "404", description = "Surface type not found."),
         @ApiResponse(responseCode = "409", description = "Surface type cannot be deleted due to conflicts.")
     })
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteSurfaceType(@PathVariable int id) {
         surfaceTypeService.deleteSurfaceType(id);
     }

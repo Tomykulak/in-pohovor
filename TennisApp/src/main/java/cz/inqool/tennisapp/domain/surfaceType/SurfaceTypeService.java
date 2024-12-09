@@ -45,6 +45,7 @@ public class SurfaceTypeService {
 
         existingSurfaceType.setName(surfaceType.getName());
         existingSurfaceType.setPricePerMinute(surfaceType.getPricePerMinute());
+        existingSurfaceType.setDeleted(surfaceType.isDeleted());
         return surfaceTypeRepository.save(existingSurfaceType);
     }
 }
