@@ -23,7 +23,7 @@ public class ReservationController {
     private final ReservationService reservationService;
 
     @GetMapping(value = "/court/{courtId}")
-    @Operation(summary = "Get reservations for a court", description = "Retrieve all reservations for a specific court by its ID.")
+    @Operation(summary = "Retrieve all reservations of a court by a court id.", description = "Retrieve all reservations for a specific court by its ID.")
     @ApiResponses({
         @ApiResponse(responseCode = "200", description = "Reservations retrieved successfully.",
                 content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ReservationResponse.class)))),
@@ -37,7 +37,7 @@ public class ReservationController {
 
 
     @GetMapping("/customer/{phoneNumber}")
-    @Operation(summary = "Get reservations by customer phone", description = "Retrieve all reservations associated with a customer's phone number.")
+    @Operation(summary = "Retrieve all reservations by customer phone.", description = "Retrieve all reservations associated with a customer's phone number.")
     @ApiResponses({
         @ApiResponse(responseCode = "200", description = "Reservations retrieved successfully.",
                 content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ReservationResponse.class)))),
@@ -51,7 +51,7 @@ public class ReservationController {
 
 
     @GetMapping("/customer/upcoming/{phoneNumber}")
-    @Operation(summary = "Get upcoming reservations by phone", description = "Retrieve all upcoming reservations for a customer by phone number.")
+    @Operation(summary = "Retrieve all upcoming reservations by customer phone number.", description = "Retrieve all upcoming reservations for a customer by phone number.")
     @ApiResponses({
         @ApiResponse(responseCode = "200", description = "Upcoming reservations retrieved successfully.",
                 content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ReservationResponse.class)))),
@@ -64,12 +64,12 @@ public class ReservationController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create a new reservation",
             description = "Add a new reservation for a tennis court.")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "201", description = "Reservation created successfully.",
-                content = @Content(mediaType = "application/json",
-                        schema = @Schema(implementation = Double.class))),
+                content = @Content(mediaType = "application/json", schema = @Schema(implementation = Double.class))),
         @ApiResponse(responseCode = "400", description = "Invalid input data."),
         @ApiResponse(responseCode = "404", description = "Court not found."),
         @ApiResponse(responseCode = "409", description = "Reservation conflict.")
@@ -89,7 +89,7 @@ public class ReservationController {
 
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "Delete reservation", description = "Soft delete a reservation by its ID.")
+    @Operation(summary = "Delete reservation by id.", description = "Soft delete a reservation by its ID.")
     @ApiResponses({
         @ApiResponse(responseCode = "204", description = "Reservation deleted successfully."),
         @ApiResponse(responseCode = "404", description = "Reservation not found."),

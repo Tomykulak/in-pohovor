@@ -73,6 +73,7 @@ public class CourtController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create a new court",
             description = "Add a new tennis court to the system.")
     @ApiResponses(value = {
