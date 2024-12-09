@@ -87,6 +87,30 @@ public class ReservationController {
         return ObjectResponse.of(totalCost, Double::valueOf);
     }
 
+    @PutMapping("/{id}")
+    @Operation(summary = "Update an existing reservation by its ID.",
+        description = "Update the details of an existing reservation, including court, customer information, start time, and end time.")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Reservation updated successfully.",
+                content = @Content(mediaType = "application/json", schema = @Schema(implementation = ReservationResponse.class))),
+        @ApiResponse(responseCode = "400", description = "Invalid input data."),
+        @ApiResponse(responseCode = "404", description = "Reservation not found."),
+        @ApiResponse(responseCode = "409", description = "Reservation conflict.")
+    })
+    public ObjectResponse<ReservationResponse> updateReservation(
+            @PathVariable int id,
+            @Valid @RequestBody ReservationRequest reservationRequest) {
+        return ObjectResponse.of(reservationService.updateReservation(
+                id,
+                reservationRequest.getCourtId(),
+                reservationRequest.getCustomerName(),
+                reservationRequest.getPhoneNumber(),
+                reservationRequest.getStartTime(),
+                reservationRequest.getEndTime(),
+                reservationRequest.getIsDoubles()
+        ), ReservationResponse::new);
+    }
+
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete reservation by id.", description = "Soft delete a reservation by its ID.")
