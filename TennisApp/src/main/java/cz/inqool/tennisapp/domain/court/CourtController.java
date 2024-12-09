@@ -44,7 +44,7 @@ public class CourtController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @Operation(summary = "Soft delete a court by ID", description = "Mark a tennis court as deleted by setting the 'isDeleted' flag to true.")
+    @Operation(summary = "Delete a court by ID", description = "Mark a tennis court as deleted by setting the 'isDeleted' flag to true.")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "204", description = "Court deleted successfully."),
         @ApiResponse(responseCode = "404", description = "Court not found."),
