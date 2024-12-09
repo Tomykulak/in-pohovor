@@ -1,6 +1,5 @@
 package cz.inqool.tennisapp.domain.reservation;
 
-import cz.inqool.tennisapp.utils.exceptions.NotFoundException;
 import cz.inqool.tennisapp.utils.response.ArrayResponse;
 import cz.inqool.tennisapp.utils.response.ObjectResponse;
 import io.swagger.v3.oas.annotations.Operation;

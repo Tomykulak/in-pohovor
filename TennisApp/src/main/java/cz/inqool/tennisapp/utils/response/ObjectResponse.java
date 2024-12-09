@@ -12,12 +12,7 @@ public class ObjectResponse<T> {
 
     // factory method
     static public <I, T> ObjectResponse<T> of(I obj, Function<I, T> mapper) {
-        int version = 1; // example of meta information
-        return new ObjectResponse<>(mapper.apply(obj), version);
+        return new ObjectResponse<>(mapper.apply(obj));
     }
-
-    // Here is place for meta information about content:
-
-    int version; // example of meta information
 
 }
