@@ -113,7 +113,7 @@ public class ReservationRepositoryTest {
     }
 
     @Test
-    void findByCustomerPhoneNumberAndReservationTimeEndAfterDeleteFalse(){
+    void findByCustomerPhoneNumberAndEndTimeAfterAndDeletedFalse(){
         reservation1.setDeleted(false);
         reservationRepository.save(reservation1);
 
