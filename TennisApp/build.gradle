@@ -46,7 +46,7 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-engine'
 
     // https://mvnrepository.com/artifact/org.mockito/mockito-core
-    testImplementation 'org.mockito:mockito-core:2.1.0'
+    testImplementation 'org.mockito:mockito-core:5.14.2'
 }
 
 tasks.named('test') {
