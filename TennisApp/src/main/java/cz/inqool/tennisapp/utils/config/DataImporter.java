@@ -38,7 +38,9 @@ public class DataImporter implements CommandLineRunner {
             courtRepository.save(new Court("Carpet court 1", carpet));
             courtRepository.save(new Court("Carpet court 2", carpet));
 
-            System.out.println("All " + courtRepository.count() + " courts added successfully.");
+            System.out.println("Data imported successfully into H2 database.");
+        } else {
+            System.out.println("Data initialization failed.");
         }
     }
 }

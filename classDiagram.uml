@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>C:/Users/tomas/gitProjects/in-pohovor/TennisApp/src/main/java/cz/inqool/tennisapp/domain</OriginalElement>
+  <nodes>
+    <node x="-73.5" y="1837.0">cz.inqool.tennisapp.domain.reservation.Reservation</node>
+    <node x="210.5" y="157.0">cz.inqool.tennisapp.domain.surfaceType.SurfaceType</node>
+    <node x="254.0" y="2582.0">cz.inqool.tennisapp.domain.reservation.ReservationService</node>
+    <node x="409.0" y="1702.5">cz.inqool.tennisapp.domain.reservation.ReservationRepository</node>
+    <node x="-115.0" y="1273.0">cz.inqool.tennisapp.domain.surfaceType.SurfaceTypeResponse</node>
+    <node x="-113.5" y="2914.0">cz.inqool.tennisapp.domain.reservation.ReservationController</node>
+    <node x="1091.0" y="817.5">cz.inqool.tennisapp.domain.surfaceType.SurfaceTypeController</node>
+    <node x="955.5" y="1189.0">cz.inqool.tennisapp.domain.court.Court</node>
+    <node x="1216.0" y="1861.0">cz.inqool.tennisapp.domain.reservation.ReservationResponse</node>
+    <node x="837.0" y="2925.5">cz.inqool.tennisapp.domain.court.CourtController</node>
+    <node x="806.5" y="2126.5">cz.inqool.tennisapp.domain.customer.CustomerRepository</node>
+    <node x="701.5" y="673.0">cz.inqool.tennisapp.domain.reservation.ReservationRequest</node>
+    <node x="1063.5" y="2605.5">cz.inqool.tennisapp.domain.court.CourtService</node>
+    <node x="399.0" y="1153.0">cz.inqool.tennisapp.domain.court.CourtResponse</node>
+    <node x="1282.5" y="277.5">cz.inqool.tennisapp.domain.surfaceType.SurfaceTypeService</node>
+    <node x="1057.0" y="1726.5">cz.inqool.tennisapp.domain.court.CourtRepository</node>
+    <node x="1315.0" y="-13.5">cz.inqool.tennisapp.domain.surfaceType.SurfaceTypeRepository</node>
+    <node x="141.5" y="709.0">cz.inqool.tennisapp.domain.customer.Customer</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="cz.inqool.tennisapp.domain.surfaceType.SurfaceTypeResponse" target="cz.inqool.tennisapp.domain.surfaceType.SurfaceType" relationship="TO_ONE">
+      <point x="0.0" y="-105.0" />
+      <point x="26.0" y="658.0" />
+      <point x="366.0" y="658.0" />
+      <point x="0.0" y="201.0" />
+    </edge>
+    <edge source="cz.inqool.tennisapp.domain.surfaceType.SurfaceTypeService" target="cz.inqool.tennisapp.domain.surfaceType.SurfaceTypeRepository" relationship="TO_ONE">
+      <point x="0.0" y="-80.5" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="cz.inqool.tennisapp.domain.reservation.ReservationController" target="cz.inqool.tennisapp.domain.reservation.ReservationService" relationship="TO_ONE">
+      <point x="0.0" y="-104.0" />
+      <point x="226.0" y="2558.0" />
+      <point x="662.0" y="2558.0" />
+      <point x="136.0" y="-116.0" />
+    </edge>
+    <edge source="cz.inqool.tennisapp.domain.reservation.ReservationService" target="cz.inqool.tennisapp.domain.customer.Customer" relationship="CREATE">
+      <point x="-136.0" y="-116.0" />
+      <point x="390.0" y="2538.0" />
+      <point x="146.0" y="2538.0" />
+      <point x="146.0" y="2518.0" />
+      <point x="-94.0" y="2518.0" />
+      <point x="-94.0" y="1778.0" />
+      <point x="193.75" y="1778.0" />
+      <point x="-52.25" y="189.0" />
+    </edge>
+    <edge source="cz.inqool.tennisapp.domain.reservation.ReservationService" target="cz.inqool.tennisapp.domain.reservation.Reservation" relationship="CREATE">
+      <point x="-136.0" y="-116.0" />
+      <point x="390.0" y="2538.0" />
+      <point x="146.0" y="2538.0" />
+      <point x="0.0" y="321.0" />
+    </edge>
+    <edge source="cz.inqool.tennisapp.domain.surfaceType.SurfaceTypeController" target="cz.inqool.tennisapp.domain.surfaceType.SurfaceTypeService" relationship="TO_ONE">
+      <point x="0.0" y="-80.5" />
+      <point x="1366.0" y="778.0" />
+      <point x="1266.0" y="778.0" />
+      <point x="1266.0" y="238.0" />
+      <point x="1466.0" y="238.0" />
+      <point x="0.0" y="-80.5" />
+    </edge>
+    <edge source="cz.inqool.tennisapp.domain.reservation.Reservation" target="cz.inqool.tennisapp.domain.surfaceType.SurfaceType" relationship="TO_ONE">
+      <point x="0.0" y="-321.0" />
+      <point x="146.0" y="1798.0" />
+      <point x="366.0" y="1798.0" />
+      <point x="0.0" y="201.0" />
+    </edge>
+    <edge source="cz.inqool.tennisapp.domain.reservation.ReservationService" target="cz.inqool.tennisapp.domain.customer.CustomerRepository" relationship="TO_ONE">
+      <point x="136.0" y="-116.0" />
+      <point x="662.0" y="2538.0" />
+      <point x="686.0" y="2538.0" />
+      <point x="686.0" y="2498.0" />
+      <point x="986.0" y="2498.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="cz.inqool.tennisapp.domain.court.CourtService" target="cz.inqool.tennisapp.domain.court.CourtRepository" relationship="TO_ONE">
+      <point x="0.0" y="-92.5" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="cz.inqool.tennisapp.domain.reservation.ReservationService" target="cz.inqool.tennisapp.domain.court.CourtRepository" relationship="TO_ONE">
+      <point x="136.0" y="-116.0" />
+      <point x="662.0" y="2538.0" />
+      <point x="686.0" y="2538.0" />
+      <point x="686.0" y="2518.0" />
+      <point x="1186.0" y="2518.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="cz.inqool.tennisapp.domain.reservation.Reservation" target="cz.inqool.tennisapp.domain.customer.Customer" relationship="TO_ONE">
+      <point x="0.0" y="-321.0" />
+      <point x="146.0" y="1798.0" />
+      <point x="366.0" y="1798.0" />
+      <point x="366.0" y="1618.0" />
+      <point x="298.25" y="1618.0" />
+      <point x="52.25" y="189.0" />
+    </edge>
+    <edge source="cz.inqool.tennisapp.domain.reservation.Reservation" target="cz.inqool.tennisapp.domain.court.Court" relationship="TO_ONE">
+      <point x="0.0" y="-321.0" />
+      <point x="146.0" y="1798.0" />
+      <point x="366.0" y="1798.0" />
+      <point x="366.0" y="1618.0" />
+      <point x="926.0" y="1618.0" />
+      <point x="926.0" y="1158.0" />
+      <point x="1066.0" y="1158.0" />
+      <point x="0.0" y="-189.0" />
+    </edge>
+    <edge source="cz.inqool.tennisapp.domain.court.CourtController" target="cz.inqool.tennisapp.domain.court.CourtService" relationship="TO_ONE">
+      <point x="0.0" y="-92.5" />
+      <point x="1046.0" y="2578.0" />
+      <point x="1186.0" y="2578.0" />
+      <point x="0.0" y="-92.5" />
+    </edge>
+    <edge source="cz.inqool.tennisapp.domain.court.Court" target="cz.inqool.tennisapp.domain.surfaceType.SurfaceType" relationship="TO_ONE">
+      <point x="0.0" y="-189.0" />
+      <point x="1066.0" y="658.0" />
+      <point x="366.0" y="658.0" />
+      <point x="0.0" y="201.0" />
+    </edge>
+    <edge source="cz.inqool.tennisapp.domain.reservation.ReservationService" target="cz.inqool.tennisapp.domain.reservation.ReservationRepository" relationship="TO_ONE">
+      <point x="136.0" y="-116.0" />
+      <point x="662.0" y="2538.0" />
+      <point x="686.0" y="2538.0" />
+      <point x="0.0" y="55.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.3351750633713561" showDependencies="true" x="201.60077271728187" y="1441.837577548006" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
