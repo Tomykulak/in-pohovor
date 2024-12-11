@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.30.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1733942742041-1" author="Tomas Okruhlica">
+        <createTable tableName="court">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_court"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="deleted" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="surface_type_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1733942742041-2" author="Tomas Okruhlica">
+        <createTable tableName="customer">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_customer"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="phone_number" type="VARCHAR(255)"/>
+            <column name="deleted" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1733942742041-3" author="Tomas Okruhlica">
+        <createTable tableName="reservation">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_reservation"/>
+            </column>
+            <column name="court_id" type="INT"/>
+            <column name="customer_id" type="INT"/>
+            <column name="start_time" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_time" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="surface_type_id" type="INT"/>
+            <column name="is_doubles" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="DOUBLE"/>
+            <column name="deleted" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1733942742041-4" author="Tomas Okruhlica">
+        <createTable tableName="surface_type">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_surfacetype"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="price_per_minute" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1733942742041-5" author="Tomas Okruhlica">
+        <addUniqueConstraint columnNames="phone_number" constraintName="uc_customer_phonenumber" tableName="customer"/>
+    </changeSet>
+    <changeSet id="1733942742041-6" author="Tomas Okruhlica">
+        <addUniqueConstraint columnNames="name" constraintName="uc_surfacetype_name" tableName="surface_type"/>
+    </changeSet>
+    <changeSet id="1733942742041-7" author="Tomas Okruhlica">
+        <addForeignKeyConstraint baseColumnNames="surface_type_id" baseTableName="court"
+                                 constraintName="FK_COURT_ON_SURFACE_TYPE" referencedColumnNames="id"
+                                 referencedTableName="surface_type"/>
+    </changeSet>
+    <changeSet id="1733942742041-8" author="Tomas Okruhlica">
+        <addForeignKeyConstraint baseColumnNames="court_id" baseTableName="reservation"
+                                 constraintName="FK_RESERVATION_ON_COURT" referencedColumnNames="id"
+                                 referencedTableName="court"/>
+    </changeSet>
+    <changeSet id="1733942742041-9" author="Tomas Okruhlica">
+        <addForeignKeyConstraint baseColumnNames="customer_id" baseTableName="reservation"
+                                 constraintName="FK_RESERVATION_ON_CUSTOMER" referencedColumnNames="id"
+                                 referencedTableName="customer"/>
+    </changeSet>
+    <changeSet id="1733942742041-10" author="Tomas Okruhlica">
+        <addForeignKeyConstraint baseColumnNames="surface_type_id" baseTableName="reservation"
+                                 constraintName="FK_RESERVATION_ON_SURFACETYPE" referencedColumnNames="id"
+                                 referencedTableName="surface_type"/>
+    </changeSet>
+
+</databaseChangeLog>
