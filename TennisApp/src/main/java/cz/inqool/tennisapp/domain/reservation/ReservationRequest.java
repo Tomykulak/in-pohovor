@@ -23,9 +23,4 @@ public class ReservationRequest {
 
     @NotNull
     private boolean isDoubles;
-
-    @NotNull
-    public boolean getIsDoubles() {
-        return isDoubles;
-    }
 }

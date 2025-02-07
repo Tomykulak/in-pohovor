@@ -81,7 +81,7 @@ public class ReservationController {
                 reservationRequest.getPhoneNumber(),
                 reservationRequest.getStartTime(),
                 reservationRequest.getEndTime(),
-                reservationRequest.getIsDoubles()
+                reservationRequest.isDoubles()
         );
 
         return ObjectResponse.of(totalCost, Double::valueOf);
@@ -107,7 +107,7 @@ public class ReservationController {
                 reservationRequest.getPhoneNumber(),
                 reservationRequest.getStartTime(),
                 reservationRequest.getEndTime(),
-                reservationRequest.getIsDoubles()
+                reservationRequest.isDoubles()
         ), ReservationResponse::new);
     }
 

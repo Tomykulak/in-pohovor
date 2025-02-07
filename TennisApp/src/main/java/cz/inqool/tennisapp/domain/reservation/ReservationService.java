@@ -56,6 +56,14 @@ public class ReservationService {
         Court court = courtRepository.findById((long) courtId)
                 .orElseThrow(NotFoundException::new);
 
+        System.out.println("Court retrieved: " + court);
+        if (court.getSurfaceType() == null) {
+            System.out.println("Court's surfaceType is null!");
+        } else {
+            System.out.println("SurfaceType: " + court.getSurfaceType() +
+                    ", Price per minute: " + court.getSurfaceType().getPricePerMinute());
+        }
+
         if (court.isDeleted()) {
             throw new AlreadyDeletedException();
         }
@@ -86,8 +94,10 @@ public class ReservationService {
                 });
 
         double totalCost = calculateTotalCost(court.getSurfaceType().getPricePerMinute(), startTime, endTime, isDoubles);
-        Reservation reservation = new Reservation(court, customer, startTime, endTime, isDoubles, totalCost);
+        System.out.println("Calculated total cost: " + totalCost);
 
+        Reservation reservation = new Reservation(court, customer, startTime, endTime, isDoubles, totalCost);
+        reservation.setSurfaceType(court.getSurfaceType());
         reservationRepository.save(reservation);
 
         return totalCost;
